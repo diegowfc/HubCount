@@ -13,9 +13,13 @@ namespace HubCount
             builder.Services.AddControllersWithViews();
 
             builder.Services.AddScoped<ExcelService>();
+            builder.Services.AddScoped<PedidosService>();
+            builder.Services.AddScoped<ClienteService>();
+            builder.Services.AddScoped<ViacepService>();
+            builder.Services.AddScoped<ProdutoService>();
 
+            builder.Services.AddHttpClient();
 
-            // Use the application's configuration to get the connection string
             var connectionString = builder.Configuration.GetConnectionString("OnionSAConnection");
             builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(connectionString));
 

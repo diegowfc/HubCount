@@ -15,11 +15,17 @@ namespace HubCount.Controllers
     {
         private readonly DataContext context;
         private readonly ExcelService excelService;
+        private readonly ClienteService clienteService;
+        private readonly PedidosService pedidoService;
+        private readonly ProdutoService produtoService;
 
-        public ClienteController(DataContext context, ExcelService excelService)
+        public ClienteController(DataContext context, ExcelService excelService, ClienteService clienteService, PedidosService pedidoService, ProdutoService produtoService)
         {
             this.context = context;
             this.excelService = excelService;
+            this.clienteService = clienteService;
+            this.pedidoService = pedidoService;
+            this.produtoService = produtoService;
         }
 
         [HttpGet]
@@ -68,15 +74,16 @@ namespace HubCount.Controllers
                             var parsedDate = excelService.FormataData(data);
                             var produtoID = excelService.GetProdutoId(produto);
 
-                            var cpfCadastrado = listaClientes.FirstOrDefault(c => c.Documento == documento);
-
-                            if (cpfCadastrado == null)
+                            if (clienteService.VerificaCadastro(documento, listaClientes))
                             {
                                 listaClientes.Add(new Clientes
                                 {
                                     Documento = documento
                                 });
                             }
+
+                            var dataEntrega = await pedidoService.CalcularTempoEntrega(cep, data);
+                            var valorTotal = await produtoService.CalcularValorTotal(produto, cep);
 
                             listaPedidos.Add(new Pedidos
                             {
@@ -86,8 +93,8 @@ namespace HubCount.Controllers
                                 RazaoSocial = razaoSocial,
                                 Documento = documento,
                                 ProdutoId = produtoID,
-                                DataEntrega = DateTime.MinValue,
-                                ValorTotal = 150
+                                DataEntrega = dataEntrega,
+                                ValorTotal = valorTotal
                             });
                         }
 

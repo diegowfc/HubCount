@@ -6,11 +6,11 @@ namespace HubCount.Service
 {
     public class ExcelService
     {
-        private readonly DataContext _context;
+        private readonly DataContext context;
 
         public ExcelService(DataContext context)
         {
-            _context = context;
+            this.context = context;
         }
 
         /// <summary>
@@ -52,9 +52,9 @@ namespace HubCount.Service
         /// <returns>Id do produto/returns>
         public int GetProdutoId(string produto)
         {
-            var product = _context.Produtos.FirstOrDefault(p => p.Nome == produto);
+            var objetoProduto = context.Produtos.FirstOrDefault(p => p.Nome == produto);
 
-            return product.Id;
+            return objetoProduto.Id;
         }
     }
 }
