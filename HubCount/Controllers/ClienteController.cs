@@ -77,6 +77,7 @@ namespace HubCount.Controllers
 
                             var parsedDate = await excelService.FormataData(data);
                             var produtoID = await excelService.GetProdutoId(produto);
+                            var produtoDescricao = await excelService.GetProdutoDescricao(produtoID);
 
                             if (clienteService.VerificaCadastro(documento, listaClientes))
                             {
@@ -98,6 +99,7 @@ namespace HubCount.Controllers
                                 RazaoSocial = razaoSocial,
                                 Documento = documento,
                                 ProdutoId = produtoID,
+                                ProdutoDescricao = produtoDescricao,
                                 DataEntrega = dataEntrega,
                                 ValorTotal = valorTotal,
                                 Regiao = regiao

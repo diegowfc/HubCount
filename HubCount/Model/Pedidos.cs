@@ -30,6 +30,8 @@ namespace HubCount.Model
         [ForeignKey("ProdutoId")]
         public int ProdutoId { get; set; }
 
+        public string ProdutoDescricao { get; set; }
+
         public Produtos Produto { get; set; }
     }
 }

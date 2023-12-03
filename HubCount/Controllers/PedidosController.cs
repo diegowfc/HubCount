@@ -25,7 +25,7 @@ namespace HubCount.Controllers
         public async Task<ActionResult<IEnumerable<object>>> ListarVendaPorProduto()
         {
             var vendaProduto = await context.Pedidos
-                .GroupBy(p => p.ProdutoId)
+                .GroupBy(p => p.ProdutoDescricao)
                 .Select(g => new
                 {
                     ProdutoID = g.Key,
@@ -58,7 +58,7 @@ namespace HubCount.Controllers
                 .Select(g => new
                 {
                     Nome = g.RazaoSocial,
-                    Produto = g.ProdutoId,
+                    Produto = g.ProdutoDescricao,
                     Valor = g.ValorTotal,
                     Data= g.DataEntrega
                 })

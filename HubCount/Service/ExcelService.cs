@@ -56,5 +56,13 @@ namespace HubCount.Service
 
             return objetoProduto.Id;
         }
+
+
+        public async Task<string> GetProdutoDescricao(int produtoId)
+        {
+            var objetoProduto = context.Produtos.FirstOrDefault(p => p.Id == produtoId);
+
+            return objetoProduto.Nome;
+        }
     }
 }

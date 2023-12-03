@@ -29,13 +29,7 @@ const ExibirGraficos = () => {
         if (chartData1) {
             const ctx1 = document.getElementById('myChart1').getContext('2d');
 
-            const productNameMap = {
-                1: 'Celular',
-                2: 'Notebook',
-                3: 'Televisão',
-            };
-
-            const chartLabels1 = chartData1.map(item => productNameMap[item.produtoID]);
+            const chartLabels1 = chartData1.map(item => item.produtoID);
             const chartDataValues1 = chartData1.map(item => item.count);
 
             const myChart1 = new Chart(ctx1, {
@@ -101,7 +95,7 @@ const ExibirGraficos = () => {
                         {listData.map(item => (
                             <li key={item.id}>
                                 <strong>Nome:</strong> {item.nome}, &nbsp;
-                                <strong>Produto:</strong> {getProductName(item.produto)}, &nbsp;
+                                <strong>Produto:</strong> {item.produto}, &nbsp;
                                 <strong>Total:</strong> {item.valor}, &nbsp;
                                 <strong>Entrega:</strong> {item.data}
                             </li>
@@ -115,15 +109,3 @@ const ExibirGraficos = () => {
 
 export default ExibirGraficos;
 
-function getProductName(productId) {
-    switch (productId) {
-        case 1:
-            return 'Celular';
-        case 2:
-            return 'Notebook';
-        case 3:
-            return 'Televisão';
-        default:
-            return 'Unknown Product';
-    }
-}
