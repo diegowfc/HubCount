@@ -8,6 +8,6 @@ INSERT INTO DBOnionSA.dbo.Produtos (Id, Nome, Descricao, PrecoUnitario) VALUES (
 
 SET IDENTITY_INSERT DBOnionSA.dbo.Produtos OFF
 
-Como citado no e-mail, gostaria de ter tido mais tempo para validar o código com testes e talvez escreve-lo melhor.
+Como citado no e-mail, gostaria de ter tido mais tempo para validar o código com testes e escreve-lo melhor.
 
 Obrigado!
