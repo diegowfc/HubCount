@@ -1,4 +1,5 @@
 ﻿import React, { Component } from 'react';
+import axios from 'axios';
 
 export class ImportarExcel extends Component {
     static displayName = ImportarExcel.name;
@@ -29,12 +30,9 @@ export class ImportarExcel extends Component {
         formData.append('ExcelFile', this.state.selectedFile);
 
         try {
-            const response = await fetch('/ImportarExcel', {
-                method: 'POST',
-                body: formData,
-            });
+            const response = await axios.post('/api/Cliente/ImportarExcel', formData);
 
-            if (response.ok) {
+            if (response.status === 200) {
                 this.setState({
                     importResultMessage: 'Arquivo importado com sucesso!',
                     showFileWarning: false,

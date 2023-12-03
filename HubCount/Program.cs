@@ -35,22 +35,27 @@ namespace HubCount
             app.UseStaticFiles();
             app.UseRouting();
 
-            app.UseCors(builder =>
+            app.UseCors(options =>
             {
-                builder.AllowAnyOrigin()
+                options.AllowAnyOrigin()
                        .AllowAnyMethod()
                        .AllowAnyHeader();
+            });
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller}/{action=Index}/{id?}");
             });
 
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
-            app.MapFallbackToFile("index.html"); ;
+            app.MapFallbackToFile("index.html");
 
             app.Run();
-
         }
-
     }
 }

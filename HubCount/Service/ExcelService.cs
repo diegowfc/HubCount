@@ -19,7 +19,7 @@ namespace HubCount.Service
         /// <param name="data"></param>
         /// <returns></returns>
         /// <exception cref="FormatException"></exception>
-        public DateTime? FormataData(string data)
+        public async Task<DateTime?> FormataData(string data)
         {
             if (!string.IsNullOrEmpty(data))
             {
@@ -50,7 +50,7 @@ namespace HubCount.Service
         /// </summary>
         /// <param name="produto">Nome do produto</param>
         /// <returns>Id do produto/returns>
-        public int GetProdutoId(string produto)
+        public async Task<int> GetProdutoId(string produto)
         {
             var objetoProduto = context.Produtos.FirstOrDefault(p => p.Nome == produto);
 

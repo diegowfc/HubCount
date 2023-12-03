@@ -21,8 +21,9 @@ namespace HubCount.Model
         public string RazaoSocial { get; set; }
 
         public string CEP { get; set; }
+        
+        public string Regiao { get; set; }
 
-        // Foreign key property
         [ForeignKey("Cliente")]
         public string Documento { get; set; }
 

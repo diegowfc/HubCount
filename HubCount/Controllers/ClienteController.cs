@@ -11,6 +11,8 @@ using HubCount.Service;
 
 namespace HubCount.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class ClienteController : Controller
     {
         private readonly DataContext context;
@@ -18,14 +20,16 @@ namespace HubCount.Controllers
         private readonly ClienteService clienteService;
         private readonly PedidosService pedidoService;
         private readonly ProdutoService produtoService;
+        private readonly ViacepService viacepService;
 
-        public ClienteController(DataContext context, ExcelService excelService, ClienteService clienteService, PedidosService pedidoService, ProdutoService produtoService)
+        public ClienteController(DataContext context, ExcelService excelService, ClienteService clienteService, PedidosService pedidoService, ProdutoService produtoService, ViacepService viacepService)
         {
             this.context = context;
             this.excelService = excelService;
             this.clienteService = clienteService;
             this.pedidoService = pedidoService;
             this.produtoService = produtoService;
+            this.viacepService = viacepService;
         }
 
         [HttpGet]
@@ -71,8 +75,8 @@ namespace HubCount.Controllers
                             if (string.IsNullOrEmpty(documento) && string.IsNullOrEmpty(razaoSocial) && string.IsNullOrEmpty(cep))
                                 break;
 
-                            var parsedDate = excelService.FormataData(data);
-                            var produtoID = excelService.GetProdutoId(produto);
+                            var parsedDate = await excelService.FormataData(data);
+                            var produtoID = await excelService.GetProdutoId(produto);
 
                             if (clienteService.VerificaCadastro(documento, listaClientes))
                             {
@@ -84,6 +88,7 @@ namespace HubCount.Controllers
 
                             var dataEntrega = await pedidoService.CalcularTempoEntrega(cep, data);
                             var valorTotal = await produtoService.CalcularValorTotal(produto, cep);
+                            var regiao = await viacepService.ObterInformacoesCEP(cep);
 
                             listaPedidos.Add(new Pedidos
                             {
@@ -94,7 +99,8 @@ namespace HubCount.Controllers
                                 Documento = documento,
                                 ProdutoId = produtoID,
                                 DataEntrega = dataEntrega,
-                                ValorTotal = valorTotal
+                                ValorTotal = valorTotal,
+                                Regiao = regiao
                             });
                         }
 
