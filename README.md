@@ -1,4 +1,4 @@
-# HubCount
+# 
 
 Utilizei o banco de dados SQLServer para salvar os dados da aplicação. Como desenhei o banco pensando em uma aplicação real, algumas chaves foram criadas como identity, portanto, caso for fazer o insert manual, pode desativá-la, como no exemplo:
 
